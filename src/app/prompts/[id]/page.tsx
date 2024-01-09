@@ -23,7 +23,7 @@ export default async function Page({params}: { params: { id: string } }): Promis
         return (
             <div className={"w-full h-full"}>
                 <Link
-                    className={"w-full h-10 flex flex-col justify-center items-center bg-blue-600 text-white font-extrabold"}
+                    className={"w-full h-10 flex flex-col justify-center items-center bg-blue-300 hover:bg-blue-700 text-white font-extrabold"}
                     href={`/prompts/${prompt.id.toString()}/edit`}>
                     Edit
                 </Link>
