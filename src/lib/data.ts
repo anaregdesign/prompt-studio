@@ -8,6 +8,7 @@ class PromptRepository {
     dataSource: DataSource
     prompt: Repository<Prompt>
     promptVariable: Repository<PromptVariable>
+
     constructor(dataSource: DataSource) {
         this.dataSource = dataSource
     }
@@ -27,6 +28,11 @@ class PromptRepository {
     async getAllPrompts(): Promise<Prompt[]> {
         await this.setUp()
         return this.prompt.find();
+    }
+
+    async getPromptById(id: number): Promise<Prompt> {
+        await this.setUp()
+        return this.prompt.findOneByOrFail({id: id})
     }
 }
 

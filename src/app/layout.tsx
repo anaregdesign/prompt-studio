@@ -1,7 +1,6 @@
 import type {Metadata} from 'next'
 import './globals.css'
 import Link from "next/link";
-import {Nav} from "@/ui/nav";
 import Menu from "@/ui/menu";
 
 
@@ -35,7 +34,7 @@ export default function RootLayout({
             </div>
             <div className={"flex flex-row w-full h-full bg-white"}>
                 <Menu/>
-                <div>
+                <div className={"w-full "}>
                     {children}
                 </div>
             </div>

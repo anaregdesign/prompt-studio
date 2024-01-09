@@ -6,7 +6,7 @@ export default async function Menu() {
     const prompts: Prompt[] = await db.getAllPrompts();
 
     return (
-        <div className={"w-80 h-full bg-black text-white"}>
+        <div className={"w-80 h-full bg-gray-400 text-black"}>
             <ul>
                 {
                     prompts.map(prompt => {
