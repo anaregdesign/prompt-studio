@@ -1,17 +1,32 @@
 import {Prompt} from "@/db/entity/prompt";
 import {db} from "@/lib/data";
 import {redirect} from "next/navigation";
+import {EntityNotFoundError} from "typeorm";
 
 export async function POST(request: Request): Promise<Response> {
     try {
         const formData: FormData = await request.formData();
         const newPrompt: Prompt = new Prompt();
+        const id = formData.get("id")
+        if (id){
+            newPrompt.id = parseInt(id.toString());
+        }
 
-        newPrompt.id = parseInt(formData.get("id")?.toString() ?? "");
-        const oldPrompt: Prompt = await db.getPromptById(newPrompt.id)
-        newPrompt.name = formData.get("name")?.toString() ?? oldPrompt.name;
-        newPrompt.prompt = formData.get("prompt")?.toString() ?? oldPrompt.prompt;
-        await db.updatePrompt(newPrompt);
+        const name = formData.get("name")
+        if (name){
+            newPrompt.name = name.toString();
+        }
+
+        const prompt = formData.get("prompt")
+        if (prompt){
+            newPrompt.prompt = prompt.toString();
+        }
+
+        if (newPrompt.id) {
+            await db.createPrompt(newPrompt);
+        } else {
+            await db.updatePrompt(newPrompt);
+        }
 
         return redirect(`/prompts/${newPrompt.id.toString()}`);
     } catch (e) {
