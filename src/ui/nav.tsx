@@ -1,4 +1,3 @@
-
 export async function Nav() {
     return (
         <nav className={"w-full h-full"}>
