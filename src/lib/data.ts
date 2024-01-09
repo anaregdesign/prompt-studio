@@ -8,7 +8,6 @@ class PromptRepository {
     dataSource: DataSource
     prompt: Repository<Prompt>
     promptVariable: Repository<PromptVariable>
-
     constructor(dataSource: DataSource) {
         this.dataSource = dataSource
     }
@@ -27,11 +26,8 @@ class PromptRepository {
 
     async getAllPrompts(): Promise<Prompt[]> {
         await this.setUp()
-        return this.prompt.find({
-            relations: ["promptVariables"],
-            where: {isActive: true}
-        });
+        return this.prompt.find();
     }
 }
 
-export const db: PromptRepository = new PromptRepository(AppDataSource)
+export const db = new PromptRepository(AppDataSource);
