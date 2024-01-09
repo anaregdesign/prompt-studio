@@ -1,9 +1,6 @@
 import {AppDataSource} from "@/db/ormconfig";
-import * as process from "process";
 import {Prompt} from "@/db/entity/prompt";
 import {PromptVariable} from "@/db/entity/prompt_variable";
-
-console.log(process.env);
 
 AppDataSource.initialize().then(() => {
     console.log("AppDataSource initialized");
@@ -21,7 +18,7 @@ AppDataSource.initialize().then(() => {
 
     const number: PromptVariable = new PromptVariable();
     number.name = "number";
-    number.type = "int";
+    number.type = "number";
     number.prompt = prompt;
 
     promptRepo.save(prompt);
