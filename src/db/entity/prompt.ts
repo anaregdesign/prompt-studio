@@ -27,4 +27,8 @@ export class Prompt {
     })
     isActive: boolean;
 
+    async getActivePromptVariables(): Promise<PromptVariable[]> {
+        return (await this.promptVariables).filter(promptVariable => promptVariable.isActive);
+    }
+
 }

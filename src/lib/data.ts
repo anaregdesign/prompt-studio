@@ -30,6 +30,11 @@ class PromptRepository {
         return this.prompt.find();
     }
 
+    async getAllActivePrompts(): Promise<Prompt[]> {
+        await this.setUp();
+        return this.prompt.find({select: {isActive: true}});
+    }
+
     async getPromptById(id: number): Promise<Prompt> {
         await this.setUp();
         return this.prompt.findOneByOrFail({id: id});
@@ -43,6 +48,41 @@ class PromptRepository {
     async updatePrompt(prompt: Prompt): Promise<void> {
         await this.setUp();
         await this.prompt.update(prompt.id, prompt);
+    }
+
+    async deactivatePrompt(prompt: Prompt): Promise<void> {
+        await this.setUp();
+        await this.prompt.update(prompt.id, {isActive: false});
+    }
+
+    async deletePrompt(prompt: Prompt): Promise<void> {
+        await this.setUp();
+        await this.prompt.delete(prompt.id);
+    }
+
+    async getPromptVariableById(id: number): Promise<PromptVariable> {
+        await this.setUp();
+        return this.promptVariable.findOneByOrFail({id: id});
+    }
+
+    async updatePromptVariable(promptVariable: PromptVariable): Promise<void> {
+        await this.setUp();
+        await this.promptVariable.update(promptVariable.id, promptVariable);
+    }
+
+    async createPromptVariable(promptVariable: PromptVariable): Promise<PromptVariable> {
+        await this.setUp();
+        return this.promptVariable.save(promptVariable);
+    }
+
+    async deactivatePromptVariable(promptVariable: PromptVariable): Promise<void> {
+        await this.setUp();
+        await this.promptVariable.update(promptVariable.id, {isActive: false});
+    }
+
+    async deletePromptVariable(promptVariable: PromptVariable): Promise<void> {
+        await this.setUp();
+        await this.promptVariable.delete(promptVariable.id);
     }
 }
 
