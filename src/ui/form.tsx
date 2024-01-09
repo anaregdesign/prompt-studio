@@ -1,5 +1,5 @@
 "use client";
-import {ChangeEvent, ReactElement, useState} from "react";
+import {ChangeEvent, FormEvent, ReactElement, useState} from "react";
 
 function getInput(variable: State, handler: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void): ReactElement {
     switch (variable.type) {
@@ -59,6 +59,8 @@ export interface State {
 
 export function Form({prompt, variables}: { prompt: string, variables: State[] }): ReactElement {
     const [template, setTemplate] = useState<string>(prompt)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [res, setRes] = useState<string>("")
     const k: number = variables.length
 
     const [states, setStates] = useState<State[]>(variables)
@@ -84,17 +86,55 @@ export function Form({prompt, variables}: { prompt: string, variables: State[] }
 
     return (
         <div className={"w-full"}>
-            <form>
+            <form onSubmit={(event: FormEvent<HTMLFormElement>) => {
+                event.preventDefault();
+                setIsLoading(true);
+
+
+                const formData = new FormData(event.currentTarget);
+                const url = "/api/v1/chat/completion";
+                fetch(url, {
+                    method: "POST",
+                    body: formData
+                }).then(response => {
+                        if (response.ok) {
+                            response.json().then(json => {
+                                console.log(json.kwargs)
+                                setRes(json.kwargs.content);
+                            })
+                        }
+                    }
+                ).catch(error => {
+                    console.error(error)
+                }).finally(() => {
+                    setIsLoading(false)
+                })
+            }}>
                 {inputs}
+                <input type={"hidden"} name={"templated"} value={template}/>
                 <h1 className={"font-extrabold mt-5"}>
                     Prompt
                 </h1>
                 <div className={"p-3 w-full h-40 border"}>
                     {template}
                 </div>
+
+                <div className={"w-full h-20 flex flex-col justify-center items-center"}>
+                <button type={"submit"}
+                        className={"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"}>
+                    ↓Send↓
+                </button>
+                    {isLoading && <p>Loading...</p>}
+                </div>
+
+                <h1 className={"font-extrabold mt-5"}>
+                    Response
+                </h1>
+                <div className={"p-3 w-full h-40 border"}>
+                    {res}
+                </div>
             </form>
         </div>
     )
-
-
+        ;
 }
