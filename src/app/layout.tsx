@@ -2,6 +2,7 @@ import type {Metadata} from 'next'
 import './globals.css'
 import Link from "next/link";
 import {Nav} from "@/ui/nav";
+import Menu from "@/ui/menu";
 
 
 export const metadata: Metadata = {
@@ -29,31 +30,11 @@ export default function RootLayout({
 
                 {/* navication */}
                 <div className={"w-full h-full"}>
-                    <Nav/>
+                    {/*<Nav/>*/}
                 </div>
             </div>
-            <div className={"flex flex-row w-full h-full"}>
-                <div className={"w-80 h-full bg-gray-400"}>
-                    <h1>category</h1>
-                    <ul>
-                        <li>
-                            <Link
-                                href={"/"}
-                                className={"flex justify-center items-center w-full h-20 hover:bg-gray-300"}
-                            >
-                                category1
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                href={"/"}
-                                className={"flex justify-center items-center w-full h-20 hover:bg-gray-300"}
-                            >
-                                category1
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
+            <div className={"flex flex-row w-full h-full bg-white"}>
+                <Menu/>
                 <div>
                     {children}
                 </div>
