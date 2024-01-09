@@ -34,6 +34,11 @@ class PromptRepository {
         await this.setUp()
         return this.prompt.findOneByOrFail({id: id})
     }
+
+    async updatePrompt(prompt: Prompt): Promise<void> {
+        await this.setUp()
+        await this.prompt.update(prompt.id, prompt);
+    }
 }
 
 export const db = new PromptRepository(AppDataSource);
