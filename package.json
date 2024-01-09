@@ -1,0 +1,35 @@
+{
+  "name": "prompt-studio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:init": "ts-node -r dotenv/config ./src/db/init.ts"
+  },
+  "dependencies": {
+    "@react-hooks-library/core": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "dotenv": "^16.3.1",
+    "langchain": "^0.1.1",
+    "mssql": "^10.0.1",
+    "next": "14.0.4",
+    "react": "^18",
+    "react-dom": "^18",
+    "ts-node": "^10.9.2",
+    "typeorm": "^0.3.19"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.7",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.4",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
+  }
+}
