@@ -3,7 +3,7 @@ import {db} from "@/lib/data";
 
 export default async function Page({params}: { params: { id: string } }): Promise<ReactElement> {
     const prompt = await db.getPromptById(parseInt(params.id));
-    const variables = await prompt.promptVariables;
+    const variables = await prompt.getActivePromptVariables();
 
     return (
         <div>
