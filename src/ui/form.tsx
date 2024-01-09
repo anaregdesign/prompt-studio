@@ -86,6 +86,7 @@ export function Form({prompt, variables}: { prompt: string, variables: State[] }
 
     return (
         <div className={"w-full"}>
+            <h1 className={"font-extrabold p-2 bg-gray-400"}>Parameters</h1>
             <form onSubmit={(event: FormEvent<HTMLFormElement>) => {
                 event.preventDefault();
                 setIsLoading(true);
@@ -111,25 +112,23 @@ export function Form({prompt, variables}: { prompt: string, variables: State[] }
                 })
             }}>
                 {inputs}
+                <h1 className={"font-extrabold p-2 bg-gray-400"}>Prompt</h1>
+
                 <input type={"hidden"} name={"templated"} value={template}/>
-                <h1 className={"font-extrabold mt-5"}>
-                    Prompt
-                </h1>
+
                 <div className={"p-3 w-full h-40 border"}>
                     {template}
                 </div>
 
                 <div className={"w-full h-20 flex flex-col justify-center items-center"}>
-                <button type={"submit"}
-                        className={"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"}>
-                    ↓Send↓
-                </button>
+                    <button type={"submit"}
+                            className={"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"}>
+                        ↓Send↓
+                    </button>
                     {isLoading && <p>Loading...</p>}
                 </div>
+                <h1 className={"font-extrabold p-2 bg-gray-400"}>Response</h1>
 
-                <h1 className={"font-extrabold mt-5"}>
-                    Response
-                </h1>
                 <div className={"p-3 w-full h-40 border"}>
                     {res}
                 </div>
