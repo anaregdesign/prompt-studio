@@ -11,17 +11,22 @@ AppDataSource.initialize().then(() => {
     const promptVariableRepo = AppDataSource.getRepository(PromptVariable);
     const prompt: Prompt = new Prompt();
     prompt.name = "類義語を探す";
-    prompt.prompt = "「{{word}}」の類義語を探してみよう";
+    prompt.prompt = "「{{word}}」の類義語を{{number}}個探してみよう";
     prompt.isActive = true;
 
-    const promptVariable: PromptVariable = new PromptVariable();
-    promptVariable.name = "word";
-    promptVariable.type = "string";
-    promptVariable.prompt = prompt;
-    promptVariable.isActive = true;
+    const word: PromptVariable = new PromptVariable();
+    word.name = "word";
+    word.type = "string";
+    word.prompt = prompt;
+
+    const number: PromptVariable = new PromptVariable();
+    number.name = "number";
+    number.type = "int";
+    number.prompt = prompt;
 
     promptRepo.save(prompt);
-    promptVariableRepo.save(promptVariable);
+    promptVariableRepo.save(word);
+    promptVariableRepo.save(number);
 
 }).catch((error) => {
     console.log("AppDataSource failed to initialize");
