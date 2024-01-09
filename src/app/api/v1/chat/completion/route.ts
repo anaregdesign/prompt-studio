@@ -11,5 +11,4 @@ export async function POST(request: Request): Promise<Response> {
     } else {
         return new Response("templated is required", {status: 400});
     }
-
 }

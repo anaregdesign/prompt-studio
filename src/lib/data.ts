@@ -26,13 +26,23 @@ class PromptRepository {
     }
 
     async getAllPrompts(): Promise<Prompt[]> {
-        await this.setUp()
+        await this.setUp();
         return this.prompt.find();
     }
 
     async getPromptById(id: number): Promise<Prompt> {
-        await this.setUp()
-        return this.prompt.findOneByOrFail({id: id})
+        await this.setUp();
+        return this.prompt.findOneByOrFail({id: id});
+    }
+
+    async createPrompt(prompt: Prompt): Promise<Prompt> {
+        await this.setUp();
+        return this.prompt.save(prompt);
+    }
+
+    async updatePrompt(prompt: Prompt): Promise<void> {
+        await this.setUp();
+        await this.prompt.update(prompt.id, prompt);
     }
 }
 
