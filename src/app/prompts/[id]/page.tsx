@@ -6,6 +6,7 @@ import {db} from "@/lib/data";
 import {Prompt} from "@/db/entity/prompt";
 import {Form, State} from "@/ui/form";
 import {PromptVariable} from "@/db/entity/prompt_variable";
+import Link from "next/link";
 
 export default async function Page({params}: { params: { id: string } }): Promise<ReactElement> {
     try {
@@ -21,6 +22,11 @@ export default async function Page({params}: { params: { id: string } }): Promis
 
         return (
             <div className={"w-full h-full"}>
+                <Link
+                    className={"w-full h-10 flex flex-col justify-center items-center bg-blue-600 text-white font-extrabold"}
+                    href={`/prompts/${prompt.id.toString()}/edit`}>
+                    Edit
+                </Link>
                 <Form prompt={prompt.prompt} variables={states}/>
             </div>
         );
