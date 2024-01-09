@@ -6,14 +6,17 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:init": "ts-node -r dotenv/config ./src/db/init.ts"
   },
   "dependencies": {
     "class-validator": "^0.14.0",
+    "dotenv": "^16.3.1",
     "mssql": "^10.0.1",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
+    "ts-node": "^10.9.2",
     "typeorm": "^0.3.19"
   },
   "devDependencies": {

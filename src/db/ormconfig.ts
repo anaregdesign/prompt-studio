@@ -4,6 +4,8 @@ import "@/db/entity/prompt";
 import {Prompt} from "@/db/entity/prompt";
 import {PromptVariable} from "@/db/entity/prompt_variable";
 
+require("dotenv").config({path: ".env.local"});
+
 export const AppDataSource: DataSource = new DataSource({
     type: "mssql",
     host: process.env.MSSQL_HOST,
