@@ -40,7 +40,7 @@ function getInput(variable: State, handler: (e: ChangeEvent<HTMLInputElement | H
                 <div key={variable.name} className={"w-full"}>
                     <label className={"p-3"}>{variable.name}</label>
                     <textarea
-                        className={"p-3 border shadow rounded"}
+                        className={"w-full p-3 border shadow rounded"}
                         onChange={handler}
                         name={variable.name}
                         defaultValue={variable.type}
