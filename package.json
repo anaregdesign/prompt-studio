@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:init": "ts-node -r dotenv/config ./src/db/init.ts"
+    "db:init": "ts-node -r dotenv/config ./src/db/init.ts",
+    "docker:build": "docker . -t prompt-studio",
+    "docker:run": "docker run -it --env-file=.env.local -p 3000:3000 prompt-studio"
   },
   "dependencies": {
     "@react-hooks-library/core": "^0.5.1",
