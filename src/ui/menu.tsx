@@ -3,7 +3,7 @@ import Link from "next/link";
 import {Prompt} from "@/db/entity/prompt";
 
 export default async function Menu() {
-    const prompts: Prompt[] = await db.getAllPrompts();
+    const prompts: Prompt[] = await db.getAllActivePrompts();
 
     return (
         <div className={"w-80 h-full bg-white text-black"}>

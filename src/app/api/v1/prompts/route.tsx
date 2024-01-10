@@ -20,6 +20,11 @@ export async function POST(request: Request): Promise<Response> {
         newPrompt.prompt = prompt.toString();
     }
 
+    const isActive = formData.get("isActive")
+    if (isActive) {
+        newPrompt.isActive = isActive.toString() === "true";
+    }
+
     if (newPrompt.id) {
         await db.createPrompt(newPrompt);
     } else {
