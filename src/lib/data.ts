@@ -32,7 +32,7 @@ class PromptRepository {
 
     async getAllActivePrompts(): Promise<Prompt[]> {
         await this.setUp();
-        return this.prompt.find({select: {isActive: true}});
+        return this.prompt.find({where: {isActive: true}});
     }
 
     async getPromptById(id: number): Promise<Prompt> {
@@ -43,6 +43,14 @@ class PromptRepository {
     async createPrompt(prompt: Prompt): Promise<Prompt> {
         await this.setUp();
         return this.prompt.save(prompt);
+    }
+
+    async getLatestPrompt(): Promise<Prompt> {
+        await this.setUp();
+        return this.prompt.findOneOrFail({
+            order: {id: "DESC"},
+            where: {isActive: true}
+        });
     }
 
     async updatePrompt(prompt: Prompt): Promise<void> {

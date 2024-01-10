@@ -116,13 +116,16 @@ export function Form({prompt, variables}: { prompt: string, variables: State[] }
 
                 <input type={"hidden"} name={"templated"} value={template}/>
 
-                <div className={"p-3 w-full h-40 border"}>
-                    {template}
-                </div>
+                <textarea
+                    disabled={true}
+                    className={"p-3 border shadow rounded w-full h-80"}
+                    defaultValue={template}
+                />
+
 
                 <div className={"w-full h-20 flex flex-col justify-center items-center"}>
                     <button type={"submit"}
-                            className={"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"}>
+                            className={"bg-blue-300 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"}>
                         ↓Send↓
                     </button>
                     {isLoading && <p>Loading...</p>}
