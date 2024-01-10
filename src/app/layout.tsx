@@ -2,6 +2,7 @@ import type {Metadata} from 'next'
 import './globals.css'
 import Link from "next/link";
 import Menu from "@/ui/menu";
+import {db} from "@/lib/data";
 
 
 export const metadata: Metadata = {
@@ -9,11 +10,12 @@ export const metadata: Metadata = {
     description: 'Prompt Sharing Service',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
                                        children,
                                    }: {
     children: React.ReactNode
 }) {
+    const prompts = await db.getAllActivePrompts();
     return (
         <html lang="en">
         <body>
@@ -33,7 +35,7 @@ export default function RootLayout({
                 </div>
             </div>
             <div className={"flex flex-row w-full h-full bg-white"}>
-                <Menu/>
+                <Menu prompts={prompts}/>
                 <div className={"w-full "}>
                     {children}
                 </div>

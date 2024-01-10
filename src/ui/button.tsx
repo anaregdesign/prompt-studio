@@ -1,7 +1,7 @@
 "use client";
 import {FormEvent} from "react";
 
-export function DeleteVariablesButton({id}: { id: number }) {
+export function DeleteVariablesButton({id}: {id: number}) {
     return (
         <form onSubmit={(event: FormEvent<HTMLFormElement>) => {
             event.preventDefault();

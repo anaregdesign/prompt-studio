@@ -137,6 +137,5 @@ export function Form({prompt, variables}: { prompt: string, variables: State[] }
                 </div>
             </form>
         </div>
-    )
-        ;
+    );
 }

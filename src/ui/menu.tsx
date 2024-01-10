@@ -1,9 +1,11 @@
 import {db} from "@/lib/data";
 import Link from "next/link";
 import {Prompt} from "@/db/entity/prompt";
+import {GetServerSideProps} from "next";
 
-export default async function Menu() {
-    const prompts: Prompt[] = await db.getAllActivePrompts();
+
+
+export default async function Menu({prompts}: {prompts: Prompt[]}) {
 
     return (
         <div className={"w-80 h-full bg-white text-black"}>
@@ -31,4 +33,11 @@ export default async function Menu() {
             </ul>
         </div>
     )
+}
+
+export const getServerSideProps: GetServerSideProps<{
+    prompts: Prompt[]
+}> = async () => {
+    const prompts = await db.getAllActivePrompts();
+    return { props: { prompts: prompts } }
 }
