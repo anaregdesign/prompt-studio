@@ -45,7 +45,7 @@ export async function POST(request: Request): Promise<Response> {
         }
     }
 
-    return redirect("/")
+    return redirect(`/prompts/${variable.prompt.id}/edit`)
 }
 
 export async function DELETE(request: Request): Promise<Response> {
