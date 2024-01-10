@@ -46,7 +46,7 @@ export default async function Page({params}: { params: { id: string } }): Promis
                         <option value="number">number</option>
                         <option value="text">text</option>
                     </select>
-                    <button type="submit" className={"border shadow bg-blue-300"}>Add</button>
+                    <button type="submit" className={"bg-blue-300 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"}>Add</button>
                 </form>
             </div>
 
@@ -58,10 +58,22 @@ export default async function Page({params}: { params: { id: string } }): Promis
                     <input type="text" name="name" defaultValue={prompt.name} className={"border shadow p-2"}/>
                     <label>Prompt</label>
                     <textarea name="prompt" defaultValue={prompt.prompt} className={"border shadow p-2"}/>
-                    <button type="submit" className={"border shadow bg-blue-300"}>Submit</button>
+                    <button type="submit" className={"bg-blue-300 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"}>Submit</button>
+                </form>
+            </div>
+            <div className={"h-full w-full"}>
+                <form
+                    action={"/api/v1/prompts"}
+                    method={"POST"}
+                    autoComplete={"false"}
+                    className={"flex flex-col"}
+                >
+                    <input type={"hidden"} name={"id"} value={prompt.id}/>
+                    <input type={"hidden"} name={"isActive"} value={"false"}/>
+                    <button type="submit" className={"bg-red-300 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4"}>Delete</button>
                 </form>
             </div>
 
         </div>
-    );
+);
 }
