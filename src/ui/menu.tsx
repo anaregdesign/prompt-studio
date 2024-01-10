@@ -1,11 +1,11 @@
-"use client";
-
 import Link from "next/link";
-import {Prompt} from "@/db/entity/prompt";
+import {db} from "@/lib/data";
 
 export const dynamic = "force-dynamic";
 
-export default function Menu({prompts}: {prompts: Prompt[]}) {
+export default async function Menu() {
+    "use server";
+    const prompts = await db.getAllActivePrompts();
 
     return (
         <div className={"w-80 h-full bg-white text-black"}>

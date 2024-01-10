@@ -102,7 +102,6 @@ export function Form({prompt, variables}: { prompt: string, variables: State[] }
                 }).then(response => {
                         if (response.ok) {
                             response.json().then(json => {
-                                console.log(json.kwargs)
                                 setRes(json.kwargs.content);
                             })
                         }
@@ -133,10 +132,11 @@ export function Form({prompt, variables}: { prompt: string, variables: State[] }
                     {isLoading && <p>Loading...</p>}
                 </div>
                 <h1 className={"font-extrabold p-2 bg-gray-400"}>Response</h1>
-
-                <div className={"p-3 w-full h-40 border"}>
-                    {res}
-                </div>
+                <textarea
+                    disabled={true}
+                    className={"p-3 border shadow rounded w-full h-80"}
+                    defaultValue={res}
+                />
             </form>
         </div>
     );

@@ -1,22 +1,22 @@
-"use server";
-
 import type {Metadata} from 'next'
 import './globals.css'
 import Link from "next/link";
 import Menu from "@/ui/menu";
 import {db} from "@/lib/data";
 
+export const dynamic = "force-dynamic";
 
-// export const metadata: Metadata = {
-//     title: 'Prompt Studio',
-//     description: 'Prompt Sharing Service',
-// }
+export const metadata: Metadata = {
+    title: 'Prompt Studio',
+    description: 'Prompt Sharing Service',
+}
 
 export default async function RootLayout({
-                                       children,
-                                   }: {
+                                             children,
+                                         }: {
     children: React.ReactNode
 }) {
+    "use server";
     const prompts = await db.getAllActivePrompts();
     return (
         <html lang="en">
@@ -37,7 +37,7 @@ export default async function RootLayout({
                 </div>
             </div>
             <div className={"flex flex-row w-full h-full bg-white"}>
-                <Menu prompts={prompts}/>
+                <Menu/>
                 <div className={"w-full "}>
                     {children}
                 </div>
