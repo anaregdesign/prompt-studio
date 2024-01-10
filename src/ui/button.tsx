@@ -1,6 +1,8 @@
 "use client";
+
 import {FormEvent} from "react";
 
+export const dynamic = "force-dynamic";
 export function DeleteVariablesButton({id}: {id: number}) {
     return (
         <form onSubmit={(event: FormEvent<HTMLFormElement>) => {

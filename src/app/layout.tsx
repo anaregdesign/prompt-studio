@@ -1,3 +1,5 @@
+"use server";
+
 import type {Metadata} from 'next'
 import './globals.css'
 import Link from "next/link";
@@ -5,10 +7,10 @@ import Menu from "@/ui/menu";
 import {db} from "@/lib/data";
 
 
-export const metadata: Metadata = {
-    title: 'Prompt Studio',
-    description: 'Prompt Sharing Service',
-}
+// export const metadata: Metadata = {
+//     title: 'Prompt Studio',
+//     description: 'Prompt Sharing Service',
+// }
 
 export default async function RootLayout({
                                        children,

@@ -1,6 +1,9 @@
+"use server";
+
 import {ReactElement} from "react";
 import {db} from "@/lib/data";
 import {DeleteVariablesButton} from "@/ui/button";
+
 
 export default async function Page({params}: { params: { id: string } }): Promise<ReactElement> {
     const prompt = await db.getPromptById(parseInt(params.id));

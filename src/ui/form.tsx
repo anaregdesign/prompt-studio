@@ -1,6 +1,8 @@
 "use client";
 import {ChangeEvent, FormEvent, ReactElement, useState} from "react";
 
+export const dynamic = "force-dynamic";
+
 function getInput(variable: State, handler: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void): ReactElement {
     switch (variable.type) {
         case "string":

@@ -1,4 +1,5 @@
 "use server";
+
 import {ReactElement} from "react";
 import {EntityNotFoundError} from "typeorm";
 import NotFound from "next/dist/client/components/not-found-error";
@@ -7,6 +8,7 @@ import {Prompt} from "@/db/entity/prompt";
 import {Form, State} from "@/ui/form";
 import {PromptVariable} from "@/db/entity/prompt_variable";
 import Link from "next/link";
+
 
 export default async function Page({params}: { params: { id: string } }): Promise<ReactElement> {
     try {
