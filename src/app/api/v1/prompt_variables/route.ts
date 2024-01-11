@@ -35,7 +35,7 @@ export async function GET(request: Request): Promise<Response> {
     }
 
     const promptVariables = await db.getPromptVariablesByQuery(query);
-    return new Response(JSON.stringify(promptVariables), {status: 200});
+    return new Response(JSON.stringify({promptVariables}), {status: 200});
 
 }
 
