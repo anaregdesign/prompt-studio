@@ -103,7 +103,7 @@ export function Variables({initialVariables}: {
             {/* add variable */}
             <div>
                 <h1 className={"font-extrabold p-2 bg-gray-400"}>Add Variable</h1>
-                <form action={"/api/v1/prompt_variables"} method={"POST"} autoComplete={"false"}
+                <form onSubmit={addVariable} autoComplete={"false"}
                       className={"flex flex-col"}>
                     <input type="hidden" name="promptId" value={promptId}/>
                     <label>Name</label>
