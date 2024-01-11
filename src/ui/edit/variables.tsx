@@ -68,10 +68,11 @@ export function Variables({initialVariables}: {
         }).then((response) => {
             if (response.status === 200) {
                 refreshVariables(promptId);
+                setIsLoading(false);
             }
         })
     }
-    
+
     return (
         <div>
             {/* list of variables */}
