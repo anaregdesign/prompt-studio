@@ -9,23 +9,21 @@ import {Prompt} from "@/db/entity/prompt";
 interface variable {
     id: number;
     name: string;
-    value: string;
     type: string;
-    promptId: number;
 }
 
 
-export function Variables({initialVariables}: {
+export function Variables({promptId, initialVariables}: {
+    promptId: number,
     initialVariables: variable[]
 }): ReactElement {
-    const promptId: number = initialVariables[0].promptId;
     const parsedInitialVariables: PromptVariable[] = initialVariables.map(variable => {
         const v: PromptVariable = new PromptVariable();
         v.id = variable.id;
         v.name = variable.name;
         v.type = variable.type;
         v.prompt = new Prompt();
-        v.prompt.id = variable.promptId;
+        v.prompt.id = promptId;
         return v;
     })
     const [variables, setVariables] = React.useState<PromptVariable[]>(parsedInitialVariables);
@@ -36,16 +34,14 @@ export function Variables({initialVariables}: {
             promptId: promptId,
             isActive: true
         })
-        fetch("/api/v1/prompt_variables", {
-            method: "GET",
-            body: requestBody,
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then((response) => {
+        const requestUrl: string = `/api/v1/prompt_variables/${new URLSearchParams({id: promptId.toString()})}`
+
+        fetch(requestUrl).then((response) => {
             response.json().then((responseBody: string) => {
-                const newVariables: {"promptVariables": PromptVariable[]} = JSON.parse(responseBody);
-                setVariables(newVariables.promptVariables);
+                const prompt: Prompt = JSON.parse(responseBody);
+                prompt.promptVariables.then((variables: PromptVariable[]) => {
+                    setVariables(variables);
+                })
             })
         })
     }
@@ -55,9 +51,11 @@ export function Variables({initialVariables}: {
         setIsLoading(true);
         const formData = new FormData(event.currentTarget);
         const requestBody: string = JSON.stringify({
-            promptId: formData.get("promptId"),
             name: formData.get("name"),
-            type: formData.get("type")
+            type: formData.get("type"),
+            prompt: {
+                id: promptId
+            }
         })
         fetch("/api/v1/prompt_variables", {
             method: "POST",

@@ -2,70 +2,31 @@ import {PromptVariable} from "@/db/entity/prompt_variable";
 import {db} from "@/lib/data";
 import {redirect} from "next/navigation";
 import {Prompt} from "@/db/entity/prompt";
-
-
-export async function GET(request: Request): Promise<Response> {
-    const url = new URL(request.url);
-    const query = new PromptVariable();
-
-    const id = url.searchParams.get('id');
-    if (id) {
-        query.id = Number(id);
-    }
-
-    const name = url.searchParams.get('name');
-    if (name) {
-        query.name = name.toString();
-    }
-
-    const type = url.searchParams.get('type');
-    if (type) {
-        query.type = type.toString();
-    }
-
-    const promptId = url.searchParams.get('promptId');
-    if (promptId) {
-        query.prompt = new Prompt();
-        query.prompt.id = parseInt(promptId.toString());
-    }
-
-    const isActive = url.searchParams.get('isActive');
-    if (isActive) {
-        query.isActive = isActive.toString() === "true";
-    }
-
-    const promptVariables = await db.getPromptVariablesByQuery(query);
-    return new Response(JSON.stringify({promptVariables}), {status: 200});
-
-}
+import * as url from "url";
 
 
 export async function POST(request: Request): Promise<Response> {
-    const data: FormData = await request.formData();
+    const data: any = await request.json();
     const variable = new PromptVariable();
     try {
 
-        const id = data.get('id');
-        if (id) {
-            variable.id = Number(id);
+        if (data.id) {
+            variable.id = Number(data.id);
         }
-        const name = data.get('name');
-        if (name) {
-            variable.name = name.toString();
+        if (data.name) {
+            variable.name = data.name.toString();
         } else {
             return new Response("name is required", {status: 400});
         }
 
-        const type = data.get('type');
-        if (type) {
-            variable.type = type.toString();
+        if (data.type) {
+            variable.type = data.type.toString();
         } else {
             return new Response("type is required", {status: 400});
         }
-        const promptId = data.get('promptId');
-        if (promptId) {
+        if (data.prompt.id) {
             variable.prompt = new Prompt();
-            variable.prompt.id = parseInt(promptId.toString());
+            variable.prompt.id = data.prompt.id
         } else {
             return new Response("promptId is required", {status: 400});
         }
@@ -78,6 +39,7 @@ export async function POST(request: Request): Promise<Response> {
         }
     } catch (e) {
         if (e instanceof Error) {
+            console.error(e.message)
             return new Response(e.message, {status: 400});
         }
     }
