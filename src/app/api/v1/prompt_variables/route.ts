@@ -3,6 +3,43 @@ import {db} from "@/lib/data";
 import {redirect} from "next/navigation";
 import {Prompt} from "@/db/entity/prompt";
 
+
+export async function GET(request: Request): Promise<Response> {
+    const url = new URL(request.url);
+    const query = new PromptVariable();
+
+    const id = url.searchParams.get('id');
+    if (id) {
+        query.id = Number(id);
+    }
+
+    const name = url.searchParams.get('name');
+    if (name) {
+        query.name = name.toString();
+    }
+
+    const type = url.searchParams.get('type');
+    if (type) {
+        query.type = type.toString();
+    }
+
+    const promptId = url.searchParams.get('promptId');
+    if (promptId) {
+        query.prompt = new Prompt();
+        query.prompt.id = parseInt(promptId.toString());
+    }
+
+    const isActive = url.searchParams.get('isActive');
+    if (isActive) {
+        query.isActive = isActive.toString() === "true";
+    }
+
+    const promptVariables = await db.getPromptVariablesByQuery(query);
+    return new Response(JSON.stringify(promptVariables), {status: 200});
+
+}
+
+
 export async function POST(request: Request): Promise<Response> {
     const data: FormData = await request.formData();
     const variable = new PromptVariable();

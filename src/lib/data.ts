@@ -68,6 +68,11 @@ class PromptRepository {
         await this.prompt.delete(prompt.id);
     }
 
+    async getPromptVariablesByQuery(query: PromptVariable): Promise<PromptVariable[]> {
+        await this.setUp();
+        return this.promptVariable.find({where: query});
+    }
+
     async getPromptVariableById(id: number): Promise<PromptVariable> {
         await this.setUp();
         return this.promptVariable.findOneByOrFail({id: id});
