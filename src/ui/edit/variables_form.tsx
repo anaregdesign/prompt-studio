@@ -13,7 +13,7 @@ interface variable {
 }
 
 
-export function Variables({promptId, initialVariables}: {
+export function VariablesForm({promptId, initialVariables}: {
     promptId: number,
     initialVariables: variable[]
 }): ReactElement {
