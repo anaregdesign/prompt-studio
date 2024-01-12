@@ -13,7 +13,7 @@ export default async function Page({params}: { params: { id: string } }): Promis
             id: variable.id,
             name: variable.name,
             type: variable.type,
-            promptId: variable.prompt.id
+            promptId: prompt.id
         }
     });
 

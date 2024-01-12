@@ -1,5 +1,4 @@
 import "reflect-metadata";
-import type {Relation} from "typeorm";
 import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {Prompt} from "@/db/entity/prompt";
 
@@ -21,11 +20,11 @@ export class PromptVariable {
     })
     type: string;
 
-    @ManyToOne(type => Prompt, prompt => prompt.promptVariables, {eager: true})
+    @ManyToOne(type => Prompt, prompt => prompt.promptVariables, {lazy: true})
     @JoinColumn(
         {name: "prompt_id"}
     )
-    prompt: Relation<Prompt>;
+    prompt: Promise<Prompt>;
 
     @Column({
         default: true,

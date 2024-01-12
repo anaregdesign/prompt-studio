@@ -22,8 +22,6 @@ export function Variables({promptId, initialVariables}: {
         v.id = variable.id;
         v.name = variable.name;
         v.type = variable.type;
-        v.prompt = new Prompt();
-        v.prompt.id = promptId;
         return v;
     })
     const [variables, setVariables] = React.useState<PromptVariable[]>(parsedInitialVariables);
