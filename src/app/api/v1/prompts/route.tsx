@@ -16,5 +16,4 @@ export async function POST(request: Request): Promise<Response> {
             "statusText": "OK",
             "headers": {"Content-Type": "application/json"}
         });
-
 }

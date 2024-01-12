@@ -15,5 +15,13 @@ export async function POST(request: Request): Promise<Response> {
             return new Response(e.message, {status: 500});
         }
     }
-    return new Response(JSON.stringify(variable), {status: 200});
+    return new Response(
+        JSON.stringify(variable),
+        {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }
+    );
 }
