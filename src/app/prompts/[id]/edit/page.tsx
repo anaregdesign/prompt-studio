@@ -2,7 +2,6 @@
 
 import {ReactElement} from "react";
 import {db} from "@/lib/data";
-import {DeleteVariablesButton} from "@/ui/button";
 import {Variables} from "@/ui/edit/variables";
 
 

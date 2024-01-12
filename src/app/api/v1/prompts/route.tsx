@@ -1,6 +1,5 @@
 import {Prompt} from "@/db/entity/prompt";
 import {db} from "@/lib/data";
-import {redirect} from "next/navigation";
 
 export async function POST(request: Request): Promise<Response> {
     const prompt: Prompt = await request.json();

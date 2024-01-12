@@ -78,6 +78,11 @@ class PromptRepository {
         return this.promptVariable.findOneByOrFail({id: id});
     }
 
+    async deletePromptVariableById(id: number): Promise<void> {
+        await this.setUp();
+        await this.promptVariable.delete({id: id});
+    }
+
     async updatePromptVariable(promptVariable: PromptVariable): Promise<void> {
         await this.setUp();
         await this.promptVariable.update(promptVariable.id, promptVariable);
