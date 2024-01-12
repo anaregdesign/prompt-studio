@@ -60,6 +60,7 @@ export function PromptForm({id, name, prompt}: { id: number, name: string, promp
                 <button type="submit"
                         className={"bg-blue-300 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"}>Submit
                 </button>
+                {isLoading && <p>Loading...</p>}
             </form>
         </div>
     );
