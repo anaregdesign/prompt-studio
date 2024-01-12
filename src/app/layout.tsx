@@ -18,6 +18,12 @@ export default async function RootLayout({
 }) {
     "use server";
     const prompts = await db.getAllActivePrompts();
+    const initialPromptArgs = prompts.map(prompt => {
+        return {
+            id: prompt.id,
+            name: prompt.name
+        }
+    });
     return (
         <html lang="en">
         <body>
@@ -37,7 +43,7 @@ export default async function RootLayout({
                 </div>
             </div>
             <div className={"flex flex-row w-full h-full bg-white"}>
-                <Menu/>
+                <Menu initialPromptArgs={initialPromptArgs}/>
                 <div className={"w-full "}>
                     {children}
                 </div>
