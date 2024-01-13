@@ -25,3 +25,9 @@ export async function postPromptVariable(promptVariable: PromptVariable): Promis
 export async function getPromptVariablesOfPromptId(promptId: number): Promise<Response> {
     return fetch('/api/v1/prompts/' + promptId + '/prompt_variables');
 }
+
+export async function deletePromptVariableById(id: number): Promise<Response> {
+    return fetch('/api/v1/prompt_variables/' + id, {
+        method: 'DELETE'
+    });
+}
