@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import {DataSource, Repository} from "typeorm";
+import {DataSource, FindOptionsWhere, Repository} from "typeorm";
 import {Prompt} from "@/db/entity/prompt";
 import {PromptVariable} from "@/db/entity/prompt_variable";
 import {AppDataSource} from "@/db/ormconfig";
@@ -66,11 +66,6 @@ class PromptRepository {
     async deletePrompt(prompt: Prompt): Promise<void> {
         await this.setUp();
         await this.prompt.delete(prompt.id);
-    }
-
-    async getPromptVariablesByQuery(query: PromptVariable): Promise<PromptVariable[]> {
-        await this.setUp();
-        return this.promptVariable.find({where: query});
     }
 
     async getPromptVariableById(id: number): Promise<PromptVariable> {
