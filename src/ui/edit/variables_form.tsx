@@ -13,7 +13,7 @@ interface variable {
 }
 
 
-export function DeleteVariablesButton({id, onClick}: {
+function DeleteVariablesButton({id, onClick}: {
     id: number,
     onClick: (event: FormEvent<HTMLFormElement>) => Promise<void>
 }): ReactElement {
