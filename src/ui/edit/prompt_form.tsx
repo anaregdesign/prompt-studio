@@ -47,6 +47,9 @@ export function PromptForm({id, name, prompt}: { id: number, name: string, promp
                                     prompt: requestPrompt.prompt
                                 });
                                 setIsLoading(false);
+
+                                // redirect to /prompts/[id]
+                                window.location.href = `/prompts/${requestPrompt.id}`;
                             })
                         }
                     })
