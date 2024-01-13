@@ -4,6 +4,7 @@ import React, {ReactElement} from "react";
 import {DeleteVariablesButton} from "@/ui/button";
 import {PromptVariable} from "@/db/entity/prompt_variable";
 import {Prompt} from "@/db/entity/prompt";
+import {getPromptVariablesOfPromptId, postPromptVariable} from "@/lib/rest";
 
 
 interface variable {
@@ -28,19 +29,20 @@ export function VariablesForm({promptId, initialVariables}: {
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
     async function refreshVariables(promptId: number) {
-        const requestBody: string = JSON.stringify({
-            promptId: promptId,
-            isActive: true
-        })
-        const requestUrl: string = `/api/v1/prompt_variables/${new URLSearchParams({id: promptId.toString()})}`
-
-        fetch(requestUrl).then((response) => {
-            response.json().then((responseBody: string) => {
-                const prompt: Prompt = JSON.parse(responseBody);
-                prompt.promptVariables.then((variables: PromptVariable[]) => {
+        getPromptVariablesOfPromptId(promptId).then((response) => {
+            if (response.status === 200) {
+                response.json().then((body: { promptVariables: PromptVariable[] }) => {
+                    console.log(body);
+                    const variables: PromptVariable[] = body.promptVariables.map((variable: any) => {
+                        const v: PromptVariable = new PromptVariable();
+                        v.id = variable.id;
+                        v.name = variable.name;
+                        v.type = variable.type;
+                        return v;
+                    })
                     setVariables(variables);
                 })
-            })
+            }
         })
     }
 
@@ -48,23 +50,24 @@ export function VariablesForm({promptId, initialVariables}: {
         event.preventDefault();
         setIsLoading(true);
         const formData = new FormData(event.currentTarget);
-        const requestBody: string = JSON.stringify({
-            name: formData.get("name"),
-            type: formData.get("type"),
-            prompt: {
-                id: promptId
-            }
-        })
-        fetch("/api/v1/prompt_variables", {
-            method: "POST",
-            body: requestBody,
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then((response) => {
+        const requestVariable = new PromptVariable();
+        const name = formData.get("name");
+        if (name) {
+            requestVariable.name = name.toString();
+        }
+        const type = formData.get("type");
+        if (type) {
+            requestVariable.type = type.toString();
+        }
+        requestVariable.prompt = new Prompt();
+        requestVariable.prompt.id = promptId;
+        postPromptVariable(requestVariable).then((response) => {
             if (response.status === 200) {
-                refreshVariables(promptId);
-                setIsLoading(false);
+                response.json().then((body) => {
+                    refreshVariables(promptId).then(() => {
+                        setIsLoading(false);
+                    })
+                })
             }
         })
     }

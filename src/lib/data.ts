@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import {DataSource, FindOptionsWhere, Repository} from "typeorm";
+import {DataSource, Repository} from "typeorm";
 import {Prompt} from "@/db/entity/prompt";
 import {PromptVariable} from "@/db/entity/prompt_variable";
 import {AppDataSource} from "@/db/ormconfig";

@@ -23,6 +23,7 @@ export default async function Page({params}: { params: { id: string } }): Promis
             <VariablesForm promptId={prompt.id} initialVariables={variableArgs}/>
             <PromptForm id={prompt.id} name={prompt.name} prompt={prompt.prompt}/>
 
+            {/* deactivate */}
             <div className={"h-full w-full"}>
                 <form
                     action={"/api/v1/prompts"}
