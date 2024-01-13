@@ -95,7 +95,6 @@ export function Form({prompt, variables}: { prompt: string, variables: State[] }
 
                 const formData = new FormData(event.currentTarget);
                 const url = "/api/v1/chat/completion";
-                // Todo: jsonify
                 fetch(url, {
                     method: "POST",
                     body: formData
