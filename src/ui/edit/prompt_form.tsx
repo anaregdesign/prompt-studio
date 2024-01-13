@@ -40,11 +40,11 @@ export function PromptForm({id, name, prompt}: { id: number, name: string, promp
 
                     postPrompt(requestPrompt).then((response) => {
                         if (response.status === 200) {
-                            response.json().then((prompt: Prompt) => {
+                            response.json().then((body) => {
                                 setPromptState({
-                                    id: prompt.id,
-                                    name: prompt.name,
-                                    prompt: prompt.prompt
+                                    id: requestPrompt.id,
+                                    name: requestPrompt.name,
+                                    prompt: requestPrompt.prompt
                                 });
                                 setIsLoading(false);
                             })
