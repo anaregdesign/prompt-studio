@@ -93,9 +93,9 @@ export function Form({prompt, variables}: { prompt: string, variables: State[] }
                 event.preventDefault();
                 setIsLoading(true);
 
-
                 const formData = new FormData(event.currentTarget);
                 const url = "/api/v1/chat/completion";
+                // Todo: jsonify
                 fetch(url, {
                     method: "POST",
                     body: formData
@@ -131,13 +131,13 @@ export function Form({prompt, variables}: { prompt: string, variables: State[] }
                     </button>
                     {isLoading && <p>Loading...</p>}
                 </div>
-                <h1 className={"font-extrabold p-2 bg-gray-400"}>Response</h1>
-                <textarea
-                    disabled={true}
-                    className={"p-3 border shadow rounded w-full h-80"}
-                    defaultValue={res}
-                />
             </form>
+            <h1 className={"font-extrabold p-2 bg-gray-400"}>Response</h1>
+            <textarea
+                disabled={true}
+                className={"p-3 border shadow rounded w-full h-80"}
+                defaultValue={res}
+            />
         </div>
     );
 }
