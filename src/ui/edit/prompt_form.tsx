@@ -2,7 +2,7 @@
 
 import {ReactElement, useState} from "react";
 import {Prompt} from "@/db/entity/prompt";
-import {deactivatePromptById, postPrompt} from "@/lib/rest";
+import {deactivatePrompt, postPrompt} from "@/lib/rest";
 
 interface promptState {
     id: number;
@@ -48,7 +48,7 @@ export function PromptForm({id, name, prompt}: { id: number, name: string, promp
                                 });
                                 setIsLoading(false);
 
-                                // redirect to /prompts/[id]
+                                // redirect to /prompts/[promptId]
                                 window.location.href = `/prompts/${requestPrompt.id}`;
                             })
                         }
@@ -72,7 +72,7 @@ export function PromptForm({id, name, prompt}: { id: number, name: string, promp
                     onSubmit={(event) => {
                         event.preventDefault();
                         setIsLoading(true);
-                        deactivatePromptById(promptState.id).then((response) => {
+                        deactivatePrompt(promptState.id).then((response) => {
                             if (response.status === 200) {
                                 setIsLoading(false);
                                 // redirect to /

@@ -2,8 +2,7 @@
 
 import React, {FormEvent, ReactElement} from "react";
 import {PromptVariable} from "@/db/entity/prompt_variable";
-import {Prompt} from "@/db/entity/prompt";
-import {deletePromptVariableById, getPromptVariablesOfPromptId, postPromptVariable} from "@/lib/rest";
+import {deletePromptVariable, getPromptVariables, postPromptVariable} from "@/lib/rest";
 
 
 interface variable {
@@ -13,13 +12,23 @@ interface variable {
 }
 
 
-function DeleteVariablesButton({id, onClick}: {
-    id: number,
-    onClick: (event: FormEvent<HTMLFormElement>) => Promise<void>
+function DeleteVariablesButton({promptId, promptVariableId}: {
+    promptId: number,
+    promptVariableId: number,
 }): ReactElement {
     return (
-        <form onSubmit={onClick} autoComplete={"false"} className={"flex flex-col"}>
-            <input type="hidden" name={"id"} value={id}/>
+        <form
+            onSubmit={(event: FormEvent<HTMLFormElement>) => {
+                event.preventDefault();
+                deletePromptVariable(promptId, promptVariableId).then((response) => {
+                    if (response.status === 200) {
+                        window.location.reload();
+                    }
+                })
+
+            }}
+            autoComplete={"false"}
+            className={"flex flex-col"}>
             <button type={"submit"}
                     className={"border shadow rounded flex justify-center items-center p-2 bg-blue-300"}>Delete
             </button>
@@ -42,7 +51,7 @@ export function VariablesForm({promptId, initialVariables}: {
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
     async function refreshVariables(promptId: number): Promise<void> {
-        getPromptVariablesOfPromptId(promptId).then((response) => {
+        getPromptVariables(promptId).then((response) => {
             if (response.status === 200) {
                 response.json().then((body: { promptVariables: PromptVariable[] }) => {
                     console.log(body);
@@ -63,9 +72,9 @@ export function VariablesForm({promptId, initialVariables}: {
         event.preventDefault();
         setIsLoading(true);
         const formData = new FormData(event.currentTarget);
-        const id = formData.get("id");
-        if (id) {
-            deletePromptVariableById(parseInt(id.toString())).then((response) => {
+        const promptVariableId = formData.get("id");
+        if (promptVariableId) {
+            deletePromptVariable(promptId, Number(promptVariableId)).then((response) => {
                 if (response.status === 200) {
                     refreshVariables(promptId).then(() => {
                         setIsLoading(false);
@@ -88,9 +97,7 @@ export function VariablesForm({promptId, initialVariables}: {
         if (type) {
             requestVariable.type = type.toString();
         }
-        requestVariable.prompt = new Prompt();
-        requestVariable.prompt.id = promptId;
-        postPromptVariable(requestVariable).then((response) => {
+        postPromptVariable(promptId, requestVariable).then((response) => {
             if (response.status === 200) {
                 response.json().then((body) => {
                     refreshVariables(promptId).then(() => {
@@ -120,7 +127,7 @@ export function VariablesForm({promptId, initialVariables}: {
                             <tr key={variable.name}>
                                 <td>{`{{${variable.name}}}`}</td>
                                 <td>{variable.type}</td>
-                                <td><DeleteVariablesButton id={variable.id} onClick={deleteVariable}/></td>
+                                <td><DeleteVariablesButton promptId={promptId} promptVariableId={variable.id}/></td>
                             </tr>
                         );
                     })}
