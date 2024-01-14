@@ -1,6 +1,8 @@
 import type {Metadata} from 'next'
-import './globals.css'
+import "@/app/globals.css"
 import Link from "next/link";
+import Menu from "@/ui/menu";
+import {db} from "@/lib/data";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +17,13 @@ export default async function RootLayout({
     children: React.ReactNode
 }) {
     "use server";
+    const prompts = await db.getAllActivePrompts();
+    const promptArgs = prompts.map(prompt => {
+        return {
+            id: prompt.id,
+            name: prompt.name
+        }
+    });
     return (
         <html lang="en">
         <body>
@@ -34,7 +43,12 @@ export default async function RootLayout({
                 </div>
             </div>
             <div className={"flex flex-row w-full h-full bg-white"}>
-                {children}
+                <div className={"max-md:hidden lg:w-80"}>
+                    <Menu promptArgs={promptArgs}/>
+                </div>
+                <div className={"w-full"}>
+                    {children}
+                </div>
             </div>
         </div>
         </body>

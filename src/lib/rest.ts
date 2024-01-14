@@ -12,6 +12,12 @@ export async function postPrompt(prompt: Prompt): Promise<Response> {
     });
 }
 
+export async function deactivatePromptById(id: number): Promise<Response> {
+    return fetch('/api/v1/prompts/' + id, {
+        method: 'DELETE'
+    });
+}
+
 export async function postPromptVariable(promptVariable: PromptVariable): Promise<Response> {
     return await fetch('/api/v1/prompt_variables', {
         method: 'POST',

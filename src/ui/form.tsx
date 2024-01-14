@@ -95,7 +95,6 @@ export function Form({prompt, variables}: { prompt: string, variables: State[] }
 
                 const formData = new FormData(event.currentTarget);
                 const url = "/api/v1/chat/completion";
-                // Todo: jsonify
                 fetch(url, {
                     method: "POST",
                     body: formData
@@ -135,7 +134,7 @@ export function Form({prompt, variables}: { prompt: string, variables: State[] }
             <h1 className={"font-extrabold p-2 bg-gray-400"}>Response</h1>
             <textarea
                 disabled={true}
-                className={"p-3 border shadow rounded w-full h-80"}
+                className={"p-3 border shadow rounded w-full h-80 overflow-y-scroll bg-white"}
                 defaultValue={res}
             />
         </div>

@@ -22,23 +22,6 @@ export default async function Page({params}: { params: { id: string } }): Promis
         <div>
             <VariablesForm promptId={prompt.id} initialVariables={variableArgs}/>
             <PromptForm id={prompt.id} name={prompt.name} prompt={prompt.prompt}/>
-
-            {/* deactivate */}
-            <div className={"h-full w-full"}>
-                <form
-                    action={"/api/v1/prompts"}
-                    method={"POST"}
-                    autoComplete={"false"}
-                    className={"flex flex-col"}
-                >
-                    <input type={"hidden"} name={"id"} value={prompt.id}/>
-                    <input type={"hidden"} name={"isActive"} value={"false"}/>
-                    <button type="submit"
-                            className={"bg-red-300 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4"}>Delete
-                    </button>
-                </form>
-            </div>
-
         </div>
     );
 }

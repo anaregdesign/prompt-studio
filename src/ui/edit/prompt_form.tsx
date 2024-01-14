@@ -2,7 +2,7 @@
 
 import {ReactElement, useState} from "react";
 import {Prompt} from "@/db/entity/prompt";
-import {postPrompt} from "@/lib/rest";
+import {deactivatePromptById, postPrompt} from "@/lib/rest";
 
 interface promptState {
     id: number;
@@ -47,6 +47,9 @@ export function PromptForm({id, name, prompt}: { id: number, name: string, promp
                                     prompt: requestPrompt.prompt
                                 });
                                 setIsLoading(false);
+
+                                // redirect to /prompts/[id]
+                                window.location.href = `/prompts/${requestPrompt.id}`;
                             })
                         }
                     })
@@ -62,6 +65,29 @@ export function PromptForm({id, name, prompt}: { id: number, name: string, promp
                 </button>
                 {isLoading && <p>Loading...</p>}
             </form>
+
+
+            <div className={"h-full w-full"}>
+                <form
+                    onSubmit={(event) => {
+                        event.preventDefault();
+                        setIsLoading(true);
+                        deactivatePromptById(promptState.id).then((response) => {
+                            if (response.status === 200) {
+                                setIsLoading(false);
+                                // redirect to /
+                                window.location.href = "/";
+                            }
+                        })
+                    }}
+                    autoComplete={"false"}
+                    className={"flex flex-col"}
+                >
+                    <button type="submit"
+                            className={"bg-red-300 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4"}>Delete
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }
