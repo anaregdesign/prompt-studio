@@ -1,7 +1,17 @@
 import {ReactElement} from "react";
+import Menu from "@/ui/menu";
+import {db} from "@/lib/data";
 
-export default function Home(): ReactElement {
-    return (
-        <></>
-    );
+export const dynamic = "force-dynamic";
+export default async function Home(): Promise<ReactElement> {
+    "use server";
+
+    const promptArgs = (await db.getAllActivePrompts()).map(prompt => {
+        return {
+            id: prompt.id,
+            name: prompt.name
+        }
+
+    });
+    return <Menu promptArgs={promptArgs}/>
 }
