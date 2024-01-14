@@ -13,5 +13,10 @@ export default async function Home(): Promise<ReactElement> {
         }
 
     });
-    return <Menu promptArgs={promptArgs}/>
+    return (
+        <div className={"max-w-md:w-full lg:w-80"}>
+            <Menu promptArgs={promptArgs}/>
+        </div>
+
+    )
 }

@@ -11,7 +11,7 @@ interface PromptArg {
 export default async function Menu({promptArgs}: { promptArgs: PromptArg[] }): Promise<ReactElement> {
     "use server";
     return (
-        <div className={"w-80 h-full bg-white text-black"}>
+        <div className={"w-full h-full bg-white text-black"}>
             <ul>
                 <li>
                     <Link

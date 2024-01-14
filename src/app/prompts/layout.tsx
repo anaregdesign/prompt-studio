@@ -43,7 +43,9 @@ export default async function RootLayout({
                 </div>
             </div>
             <div className={"flex flex-row w-full h-full bg-white"}>
-                <Menu promptArgs={promptArgs}/>
+                <div className={"max-md:hidden lg:w-80"}>
+                    <Menu promptArgs={promptArgs}/>
+                </div>
                 <div className={"w-full"}>
                     {children}
                 </div>
