@@ -12,14 +12,14 @@ export async function postPrompt(prompt: Prompt): Promise<Response> {
     });
 }
 
-export async function deactivatePromptById(id: number): Promise<Response> {
-    return fetch('/api/v1/prompts/' + id, {
+export async function deactivatePrompt(promptId: number): Promise<Response> {
+    return fetch(`/api/v1/prompts/${promptId}`, {
         method: 'DELETE'
     });
 }
 
-export async function postPromptVariable(promptVariable: PromptVariable): Promise<Response> {
-    return await fetch('/api/v1/prompt_variables', {
+export async function postPromptVariable(promptId: number, promptVariable: PromptVariable): Promise<Response> {
+    return await fetch(`/api/v1/prompts/${promptId}/prompt_variables`, {
         method: 'POST',
         body: JSON.stringify(promptVariable),
         headers: {
@@ -28,12 +28,12 @@ export async function postPromptVariable(promptVariable: PromptVariable): Promis
     });
 }
 
-export async function getPromptVariablesOfPromptId(promptId: number): Promise<Response> {
-    return fetch('/api/v1/prompts/' + promptId + '/prompt_variables');
+export async function getPromptVariables(promptId: number): Promise<Response> {
+    return fetch(`/api/v1/prompts/${promptId}/prompt_variables`);
 }
 
-export async function deletePromptVariableById(id: number): Promise<Response> {
-    return fetch('/api/v1/prompt_variables/' + id, {
+export async function deletePromptVariable(promptId: number, promptVariableId: number): Promise<Response> {
+    return fetch(`/api/v1/prompts/${promptId}/prompt_variables/${promptVariableId}`, {
         method: 'DELETE'
     });
 }
