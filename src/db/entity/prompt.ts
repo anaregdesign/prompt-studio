@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import type {Relation} from "typeorm";
 import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {PromptVariable} from "@/db/entity/prompt_variable";
 
@@ -18,8 +19,8 @@ export class Prompt {
     })
     prompt: string;
 
-    @OneToMany(type => PromptVariable, promptVariable => promptVariable.prompt, {lazy: true})
-    promptVariables: Promise<PromptVariable[]>;
+    @OneToMany(type => PromptVariable, promptVariable => promptVariable.prompt, {eager: true})
+    promptVariables: Relation<PromptVariable[]>;
 
     @Column({
         default: true,
@@ -27,8 +28,9 @@ export class Prompt {
     })
     isActive: boolean;
 
-    async getActivePromptVariables(): Promise<PromptVariable[]> {
-        return (await this.promptVariables).filter(promptVariable => promptVariable.isActive);
+    getActivePromptVariables(): PromptVariable[] {
+        console.log(this.promptVariables);
+        return this.promptVariables.filter(promptVariable => promptVariable.isActive);
     }
 
 }

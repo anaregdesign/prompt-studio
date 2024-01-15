@@ -13,7 +13,7 @@ import Link from "next/link";
 export default async function Page({params}: { params: { id: string } }): Promise<ReactElement> {
     try {
         const prompt: Prompt = await db.getPromptById(parseInt(params.id));
-        const variables: PromptVariable[] = await prompt.promptVariables;
+        const variables: PromptVariable[] = prompt.promptVariables;
         const states: State[] = variables.map(variable => {
             return {
                 name: variable.name,

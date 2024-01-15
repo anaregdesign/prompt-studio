@@ -21,7 +21,7 @@ export class PromptVariable {
     })
     type: string;
 
-    @ManyToOne(type => Prompt, prompt => prompt.promptVariables, {eager: true})
+    @ManyToOne(type => Prompt, prompt => prompt.promptVariables)
     @JoinColumn(
         {name: "prompt_id"}
     )
