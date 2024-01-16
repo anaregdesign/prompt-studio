@@ -3,30 +3,31 @@ import {db} from "@/lib/data";
 
 
 export async function GET(request: Request): Promise<Response> {
-    return new Response("not implemented", {"status": 501, "statusText": "Not Implemented"});
+    // not implemented
+    return new Response(JSON.stringify({error: "not implemented"}), {status: 501});
 }
 
 export async function POST(request: Request): Promise<Response> {
     const prompt: Prompt = await request.json();
-    if (prompt.id) {
-        await db.createPrompt(prompt);
-    } else {
-        await db.updatePrompt(prompt);
-    }
 
-    return new Response(
-        JSON.stringify({status: "ok"}),
-        {
-            "status": 200,
-            "statusText": "OK",
-            "headers": {"Content-Type": "application/json"}
-        });
+    try {
+        if (!prompt.id) {
+            await db.createPrompt(prompt)
+            // 200 OK
+            return new Response(JSON.stringify({status: "ok"}), {status: 200});
+        } else {
+            return new Response(JSON.stringify({error: "id must not be set"}), {status: 400});
+        }
+    } catch (e) {
+        console.error(e);
+        return new Response(JSON.stringify({error: e}), {status: 500});
+    }
 }
 
 export async function PUT(request: Request): Promise<Response> {
-    return new Response("not implemented", {"status": 501, "statusText": "Not Implemented"});
+    return new Response(JSON.stringify({error: "not implemented"}), {status: 501});
 }
 
 export async function DELETE(request: Request): Promise<Response> {
-    return new Response("not implemented", {"status": 501, "statusText": "Not Implemented"});
+    return new Response(JSON.stringify({error: "not implemented"}), {status: 501});
 }

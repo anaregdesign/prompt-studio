@@ -16,39 +16,27 @@ export async function POST(request: Request, {params}: { params: { promptId: str
     promptVariable.prompt.id = Number(promptId);
 
     try {
-        if (promptVariable.id) {
-            await db.updatePromptVariable(promptVariable);
-        } else {
+        if (!promptVariable.id) {
             await db.createPromptVariable(promptVariable);
+            // 200 ok
+            return new Response(JSON.stringify({status: "ok"}), {status: 200});
+        } else {
+            // must not be set
+            return new Response(JSON.stringify({error: "must not be set"}), {status: 400});
         }
     } catch (e) {
         console.error(e);
         return new Response(JSON.stringify({error: e}), {status: 500});
     }
 
-    return new Response(JSON.stringify(promptVariable), {status: 200});
 }
 
 export async function PUT(request: Request, {params}: { params: { promptId: string } }): Promise<Response> {
-    const promptId = params.promptId;
-    const promptVariable: PromptVariable = await request.json();
-    promptVariable.prompt = new Prompt();
-    promptVariable.prompt.id = Number(promptId);
-
-    try {
-        if (promptVariable.id) {
-            await db.updatePromptVariable(promptVariable);
-        } else {
-            await db.createPromptVariable(promptVariable);
-        }
-    } catch (e) {
-        console.error(e);
-        return new Response(JSON.stringify({error: e}), {status: 500});
-    }
-
-    return new Response(JSON.stringify(promptVariable), {status: 200});
+    // not implemented
+    return new Response(JSON.stringify({error: "not implemented"}), {status: 501});
 }
 
 export async function DELETE(request: Request, {params}: { params: { promptId: string } }): Promise<Response> {
-    return new Response(JSON.stringify({status: "ok"}), {status: 200});
+    // not implemented
+    return new Response(JSON.stringify({error: "not implemented"}), {status: 501});
 }
