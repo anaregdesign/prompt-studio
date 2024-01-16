@@ -10,24 +10,8 @@ export async function GET(request: Request, {params}: { params: { promptVariable
 export async function POST(request: Request, {params}: {
     params: { promptId: string, promptVariableId: string }
 }): Promise<Response> {
-    const promptVariable = await request.json();
-    promptVariable.id = Number(params.promptVariableId);
-    promptVariable.prompt = new Prompt();
-    promptVariable.prompt.id = Number(params.promptId);
-
-    try {
-        if (await db.isExistingPromptVariable(promptVariable.id)) {
-            // already exists
-            return new Response(JSON.stringify({error: "already exists"}), {status: 400});
-        } else {
-            await db.createPromptVariable(promptVariable);
-        }
-    } catch (e) {
-        console.error(e);
-        return new Response(JSON.stringify({error: e}), {status: 500});
-    }
-
-    return new Response(JSON.stringify(promptVariable), {status: 200});
+    // not implemented
+    return new Response(JSON.stringify({status: "ok"}), {status: 501});
 }
 
 

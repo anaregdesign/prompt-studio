@@ -17,32 +17,8 @@ export async function GET(request: Request, {params}: { params: { promptId: stri
 }
 
 export async function POST(request: Request, {params}: { params: { promptId: string } }): Promise<Response> {
-    const promptId = params.promptId;
-    const prompt: Prompt = await request.json();
-    prompt.id = Number(promptId);
-
-    try {
-        if (await db.isExistingPrompt(prompt.id)) {
-            // already exists
-            return new Response(JSON.stringify({error: "already exists"}), {status: 400});
-        } else {
-            await db.createPrompt(prompt);
-        }
-    } catch (e) {
-        console.error(e);
-        return new Response(JSON.stringify({error: e}), {status: 500});
-    }
-
-    return new Response(
-        JSON.stringify(
-            {prompt}),
-        {
-            status: 200,
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }
-    );
+    // not implemented
+    return new Response(JSON.stringify({status: "ok"}), {status: 501});
 }
 
 
