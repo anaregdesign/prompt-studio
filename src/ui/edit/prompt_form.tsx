@@ -2,7 +2,7 @@
 
 import {ReactElement, useState} from "react";
 import {Prompt} from "@/db/entity/prompt";
-import {deactivatePrompt, postPrompt} from "@/lib/rest";
+import {createPrompt, deactivatePrompt} from "@/lib/rest";
 
 interface promptState {
     id: number;
@@ -38,7 +38,7 @@ export function PromptForm({id, name, prompt}: { id: number, name: string, promp
                         requestPrompt.prompt = prompt.toString();
                     }
 
-                    postPrompt(requestPrompt).then((response) => {
+                    createPrompt(requestPrompt).then((response) => {
                         if (response.status === 200) {
                             response.json().then((body) => {
                                 setPromptState({
