@@ -11,7 +11,7 @@ export async function POST(request: Request, {params}: {
     params: { promptId: string, promptVariableId: string }
 }): Promise<Response> {
     // not implemented
-    return new Response(JSON.stringify({status: "ok"}), {status: 501});
+    return new Response(JSON.stringify({error: "not implemented"}), {status: 501});
 }
 
 
