@@ -55,18 +55,9 @@ class PromptRepository {
 
     async updatePrompt(prompt: Prompt): Promise<void> {
         await this.setUp();
-        const promptWithoutId: Prompt = new Prompt();
-        if (prompt.name) {
-            promptWithoutId.name = prompt.name;
-        }
-        if (prompt.prompt) {
-            promptWithoutId.prompt = prompt.prompt;
-        }
-        if (prompt.isActive) {
-            promptWithoutId.isActive = prompt.isActive;
-        }
+        const {id, ...body} = prompt;
 
-        await this.prompt.update(prompt.id, promptWithoutId);
+        await this.prompt.update(id, body);
     }
 
     async deactivatePrompt(prompt: Prompt): Promise<void> {
@@ -91,7 +82,8 @@ class PromptRepository {
 
     async updatePromptVariable(promptVariable: PromptVariable): Promise<void> {
         await this.setUp();
-        await this.promptVariable.update(promptVariable.id, promptVariable);
+        const {id, ...body} = promptVariable;
+        await this.promptVariable.update(id, body);
     }
 
     async createPromptVariable(promptVariable: PromptVariable): Promise<PromptVariable> {

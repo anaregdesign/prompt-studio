@@ -23,12 +23,11 @@ export async function POST(request: Request, {params}: { params: { promptId: str
 
 
 export async function PUT(request: Request, {params}: { params: { promptId: string } }): Promise<Response> {
-    const promptId = params.promptId;
+    const promptId = Number(params.promptId);
     const prompt: Prompt = await request.json();
-    prompt.id = Number(promptId);
 
     try {
-        if (await db.isExistingPrompt(prompt.id)) {
+        if (await db.isExistingPrompt(promptId)) {
             await db.updatePrompt(prompt);
             // 200 ok
             return new Response(JSON.stringify({status: "ok"}), {status: 200});

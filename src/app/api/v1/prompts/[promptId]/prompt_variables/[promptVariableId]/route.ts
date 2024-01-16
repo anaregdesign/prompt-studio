@@ -1,5 +1,6 @@
 import {db} from "@/lib/data";
 import {Prompt} from "@/db/entity/prompt";
+import {PromptVariable} from "@/db/entity/prompt_variable";
 
 export async function GET(request: Request, {params}: { params: { promptVariableId: string } }): Promise<Response> {
     const id: string = params.promptVariableId;
@@ -18,10 +19,10 @@ export async function POST(request: Request, {params}: {
 export async function PUT(request: Request, {params}: {
     params: { promptId: string, promptVariableId: string }
 }): Promise<Response> {
-    const promptVariable = await request.json();
-    promptVariable.id = Number(params.promptVariableId);
+    const promptVariable: PromptVariable = await request.json();
     promptVariable.prompt = new Prompt();
     promptVariable.prompt.id = Number(params.promptId);
+
 
     try {
         if (await db.isExistingPromptVariable(promptVariable.id)) {
