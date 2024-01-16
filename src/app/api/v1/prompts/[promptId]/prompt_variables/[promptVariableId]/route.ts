@@ -26,6 +26,8 @@ export async function PUT(request: Request, {params}: {
     try {
         if (await db.isExistingPromptVariable(promptVariable.id)) {
             await db.updatePromptVariable(promptVariable);
+            // 200 ok
+            return new Response(JSON.stringify({status: "ok"}), {status: 200});
         } else {
             // does not exist
             return new Response(JSON.stringify({error: "does not exist"}), {status: 400});
@@ -34,9 +36,6 @@ export async function PUT(request: Request, {params}: {
         console.error(e);
         return new Response(JSON.stringify({error: e}), {status: 500});
     }
-
-    return new Response(JSON.stringify(promptVariable), {status: 200});
-
 }
 
 

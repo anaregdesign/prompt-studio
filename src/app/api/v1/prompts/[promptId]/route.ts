@@ -30,6 +30,8 @@ export async function PUT(request: Request, {params}: { params: { promptId: stri
     try {
         if (await db.isExistingPrompt(prompt.id)) {
             await db.updatePrompt(prompt);
+            // 200 ok
+            return new Response(JSON.stringify({status: "ok"}), {status: 200});
         } else {
             // does not exist
             return new Response(JSON.stringify({error: "does not exist"}), {status: 400});
@@ -38,18 +40,6 @@ export async function PUT(request: Request, {params}: { params: { promptId: stri
         console.error(e);
         return new Response(JSON.stringify({error: e}), {status: 500});
     }
-
-    return new Response(
-        JSON.stringify(
-            {prompt}),
-        {
-            status: 200,
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }
-    );
-
 }
 
 export async function DELETE(request: Request, {params}: { params: { promptId: string } }): Promise<Response> {
