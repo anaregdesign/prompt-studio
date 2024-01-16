@@ -97,6 +97,20 @@ class PromptRepository {
         await this.setUp();
         await this.promptVariable.delete(promptVariable.id);
     }
+
+    async isExistingPromptVariable(id: number): Promise<boolean> {
+        await this.setUp();
+        return this.promptVariable.findOneBy({id: id}).then((promptVariable) => {
+            return !!promptVariable;
+        });
+    }
+
+    async isExistingPrompt(id: number): Promise<boolean> {
+        await this.setUp();
+        return this.prompt.findOneBy({id: id}).then((prompt) => {
+            return !!prompt;
+        });
+    }
 }
 
 export const db = new PromptRepository(AppDataSource);

@@ -29,3 +29,26 @@ export async function POST(request: Request, {params}: { params: { promptId: str
     return new Response(JSON.stringify(promptVariable), {status: 200});
 }
 
+export async function PUT(request: Request, {params}: { params: { promptId: string } }): Promise<Response> {
+    const promptId = params.promptId;
+    const promptVariable: PromptVariable = await request.json();
+    promptVariable.prompt = new Prompt();
+    promptVariable.prompt.id = Number(promptId);
+
+    try {
+        if (promptVariable.id) {
+            await db.updatePromptVariable(promptVariable);
+        } else {
+            await db.createPromptVariable(promptVariable);
+        }
+    } catch (e) {
+        console.error(e);
+        return new Response(JSON.stringify({error: e}), {status: 500});
+    }
+
+    return new Response(JSON.stringify(promptVariable), {status: 200});
+}
+
+export async function DELETE(request: Request, {params}: { params: { promptId: string } }): Promise<Response> {
+    return new Response(JSON.stringify({status: "ok"}), {status: 200});
+}
