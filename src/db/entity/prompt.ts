@@ -1,3 +1,5 @@
+"use strict";
+
 import "reflect-metadata";
 import type {Relation} from "typeorm";
 import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
@@ -29,7 +31,6 @@ export class Prompt {
     isActive: boolean;
 
     getActivePromptVariables(): PromptVariable[] {
-        console.log(this.promptVariables);
         return this.promptVariables.filter(promptVariable => promptVariable.isActive);
     }
 

@@ -1,3 +1,5 @@
+"use strict";
+
 import "reflect-metadata";
 import type {Relation} from "typeorm";
 import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";

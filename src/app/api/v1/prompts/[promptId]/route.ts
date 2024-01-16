@@ -2,7 +2,6 @@ import {db} from "@/lib/data";
 
 export async function GET(request: Request, {params}: { params: { promptId: string } }): Promise<Response> {
     const id = params.promptId;
-    console.log(id);
     const prompt = await db.getPromptById(Number(id));
     return new Response(
         JSON.stringify(

@@ -54,7 +54,6 @@ export function VariablesForm({promptId, initialVariables}: {
         getPromptVariables(promptId).then((response) => {
             if (response.status === 200) {
                 response.json().then((body: { promptVariables: PromptVariable[] }) => {
-                    console.log(body);
                     const variables: PromptVariable[] = body.promptVariables.map((variable: any) => {
                         const v: PromptVariable = new PromptVariable();
                         v.id = variable.id;

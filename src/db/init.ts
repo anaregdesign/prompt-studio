@@ -1,6 +1,7 @@
 import {AppDataSource} from "@/db/ormconfig";
 import {Prompt} from "@/db/entity/prompt";
 import {PromptVariable} from "@/db/entity/prompt_variable";
+import {DataSource} from "typeorm";
 
 AppDataSource.initialize().then(() => {
     console.log("AppDataSource initialized");
@@ -10,19 +11,18 @@ AppDataSource.initialize().then(() => {
     prompt.name = "類義語を探す";
     prompt.prompt = "「{{word}}」の類義語を{{number}}個探してみよう";
     prompt.isActive = true;
+    promptRepo.save(prompt);
 
     const word: PromptVariable = new PromptVariable();
     word.name = "word";
     word.type = "string";
     word.prompt = prompt;
+    promptVariableRepo.save(word);
 
     const number: PromptVariable = new PromptVariable();
     number.name = "number";
     number.type = "number";
     number.prompt = prompt;
-
-    promptRepo.save(prompt);
-    promptVariableRepo.save(word);
     promptVariableRepo.save(number);
 
 }).catch((error) => {

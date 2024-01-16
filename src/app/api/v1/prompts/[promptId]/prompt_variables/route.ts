@@ -10,11 +10,22 @@ export async function GET(request: Request, {params}: { params: { promptId: stri
 }
 
 export async function POST(request: Request, {params}: { params: { promptId: string } }): Promise<Response> {
-    const id = params.promptId;
-    const prompt: Prompt = await db.getPromptById(Number(id));
+    const promptId = params.promptId;
     const promptVariable: PromptVariable = await request.json();
-    promptVariable.prompt = prompt;
-    await db.promptVariable.save(promptVariable);
+    promptVariable.prompt = new Prompt();
+    promptVariable.prompt.id = Number(promptId);
+
+    try {
+        if (promptVariable.id) {
+            await db.updatePromptVariable(promptVariable);
+        } else {
+            await db.createPromptVariable(promptVariable);
+        }
+    } catch (e) {
+        console.error(e);
+        return new Response(JSON.stringify({error: e}), {status: 500});
+    }
+
     return new Response(JSON.stringify(promptVariable), {status: 200});
 }
 
