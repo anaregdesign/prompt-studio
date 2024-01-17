@@ -1,8 +1,7 @@
 import "reflect-metadata";
 import {DataSource} from "typeorm";
 import "@/db/entity/prompt";
-import {Prompt} from "@/db/entity/prompt";
-import {PromptVariable} from "@/db/entity/prompt_variable";
+import {Prompt, PromptVariable} from "@/db/entity/prompt";
 
 require("dotenv").config({path: ".env.local"});
 

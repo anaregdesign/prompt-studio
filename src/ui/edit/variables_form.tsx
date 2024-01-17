@@ -1,8 +1,8 @@
 "use client";
 
 import React, {FormEvent, ReactElement} from "react";
-import {PromptVariable} from "@/db/entity/prompt_variable";
-import {deletePromptVariable, getPromptVariables, postPromptVariable} from "@/lib/rest";
+import {createPromptVariable, deletePromptVariable, getPromptVariables} from "@/lib/rest";
+import {PromptVariable} from "@/db/entity/prompt";
 
 
 interface variable {
@@ -54,7 +54,6 @@ export function VariablesForm({promptId, initialVariables}: {
         getPromptVariables(promptId).then((response) => {
             if (response.status === 200) {
                 response.json().then((body: { promptVariables: PromptVariable[] }) => {
-                    console.log(body);
                     const variables: PromptVariable[] = body.promptVariables.map((variable: any) => {
                         const v: PromptVariable = new PromptVariable();
                         v.id = variable.id;
@@ -97,7 +96,7 @@ export function VariablesForm({promptId, initialVariables}: {
         if (type) {
             requestVariable.type = type.toString();
         }
-        postPromptVariable(promptId, requestVariable).then((response) => {
+        createPromptVariable(promptId, requestVariable).then((response) => {
             if (response.status === 200) {
                 response.json().then((body) => {
                     refreshVariables(promptId).then(() => {

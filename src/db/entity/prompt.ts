@@ -1,6 +1,40 @@
+"use strict";
+
 import "reflect-metadata";
-import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
-import {PromptVariable} from "@/db/entity/prompt_variable";
+import type {Relation} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+
+@Entity({name: 'prompt_variables'})
+export class PromptVariable {
+
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @Column({
+        type: "varchar",
+        length: 32
+    })
+    name: string;
+
+    @Column({
+        type: "varchar",
+        length: 32
+    })
+    type: string;
+
+    @ManyToOne(type => Prompt, prompt => prompt.promptVariables)
+    @JoinColumn(
+        {name: "prompt_id"}
+    )
+    prompt: Relation<Prompt>;
+
+    @Column({
+        default: true,
+        name: "is_active"
+    })
+    isActive: boolean;
+
+}
 
 @Entity({name: 'prompts'})
 export class Prompt {
@@ -18,8 +52,8 @@ export class Prompt {
     })
     prompt: string;
 
-    @OneToMany(type => PromptVariable, promptVariable => promptVariable.prompt, {lazy: true})
-    promptVariables: Promise<PromptVariable[]>;
+    @OneToMany(type => PromptVariable, promptVariable => promptVariable.prompt, {eager: true})
+    promptVariables: Relation<PromptVariable[]>;
 
     @Column({
         default: true,
@@ -27,8 +61,8 @@ export class Prompt {
     })
     isActive: boolean;
 
-    async getActivePromptVariables(): Promise<PromptVariable[]> {
-        return (await this.promptVariables).filter(promptVariable => promptVariable.isActive);
+    getActivePromptVariables(): PromptVariable[] {
+        return this.promptVariables.filter(promptVariable => promptVariable.isActive);
     }
 
 }

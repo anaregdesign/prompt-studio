@@ -1,7 +1,6 @@
 import "reflect-metadata";
 import {DataSource, Repository} from "typeorm";
-import {Prompt} from "@/db/entity/prompt";
-import {PromptVariable} from "@/db/entity/prompt_variable";
+import {Prompt, PromptVariable} from "@/db/entity/prompt";
 import {AppDataSource} from "@/db/ormconfig";
 
 class PromptRepository {
@@ -55,7 +54,9 @@ class PromptRepository {
 
     async updatePrompt(prompt: Prompt): Promise<void> {
         await this.setUp();
-        await this.prompt.update(prompt.id, prompt);
+        const {id, ...body} = prompt;
+
+        await this.prompt.update(id, body);
     }
 
     async deactivatePrompt(prompt: Prompt): Promise<void> {
@@ -80,7 +81,8 @@ class PromptRepository {
 
     async updatePromptVariable(promptVariable: PromptVariable): Promise<void> {
         await this.setUp();
-        await this.promptVariable.update(promptVariable.id, promptVariable);
+        const {id, ...body} = promptVariable;
+        await this.promptVariable.update(id, body);
     }
 
     async createPromptVariable(promptVariable: PromptVariable): Promise<PromptVariable> {
@@ -96,6 +98,20 @@ class PromptRepository {
     async deletePromptVariable(promptVariable: PromptVariable): Promise<void> {
         await this.setUp();
         await this.promptVariable.delete(promptVariable.id);
+    }
+
+    async isExistingPromptVariable(id: number): Promise<boolean> {
+        await this.setUp();
+        return this.promptVariable.findOneBy({id: id}).then((promptVariable) => {
+            return !!promptVariable;
+        });
+    }
+
+    async isExistingPrompt(id: number): Promise<boolean> {
+        await this.setUp();
+        return this.prompt.findOneBy({id: id}).then((prompt) => {
+            return !!prompt;
+        });
     }
 }
 

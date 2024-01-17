@@ -4,16 +4,15 @@ import {ReactElement} from "react";
 import {EntityNotFoundError} from "typeorm";
 import NotFound from "next/dist/client/components/not-found-error";
 import {db} from "@/lib/data";
-import {Prompt} from "@/db/entity/prompt";
+import {Prompt, PromptVariable} from "@/db/entity/prompt";
 import {Form, State} from "@/ui/form";
-import {PromptVariable} from "@/db/entity/prompt_variable";
 import Link from "next/link";
 
 
 export default async function Page({params}: { params: { id: string } }): Promise<ReactElement> {
     try {
         const prompt: Prompt = await db.getPromptById(parseInt(params.id));
-        const variables: PromptVariable[] = await prompt.promptVariables;
+        const variables: PromptVariable[] = prompt.promptVariables;
         const states: State[] = variables.map(variable => {
             return {
                 name: variable.name,
