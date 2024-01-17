@@ -1,7 +1,5 @@
 import {AppDataSource} from "@/db/ormconfig";
-import {Prompt} from "@/db/entity/prompt";
-import {PromptVariable} from "@/db/entity/prompt_variable";
-import {DataSource} from "typeorm";
+import {Prompt, PromptVariable} from "@/db/entity/prompt";
 
 AppDataSource.initialize().then(() => {
     console.log("AppDataSource initialized");

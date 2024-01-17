@@ -1,6 +1,5 @@
 import {db} from "@/lib/data";
-import {PromptVariable} from "@/db/entity/prompt_variable";
-import {Prompt} from "@/db/entity/prompt";
+import {Prompt, PromptVariable} from "@/db/entity/prompt";
 
 export async function GET(request: Request, {params}: { params: { promptId: string } }): Promise<Response> {
     const id = params.promptId;

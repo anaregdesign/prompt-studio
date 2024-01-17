@@ -1,7 +1,6 @@
 import "reflect-metadata";
 import {DataSource, Repository} from "typeorm";
-import {Prompt} from "@/db/entity/prompt";
-import {PromptVariable} from "@/db/entity/prompt_variable";
+import {Prompt, PromptVariable} from "@/db/entity/prompt";
 import {AppDataSource} from "@/db/ormconfig";
 
 class PromptRepository {

@@ -1,5 +1,4 @@
-import {Prompt} from "@/db/entity/prompt";
-import {PromptVariable} from "@/db/entity/prompt_variable";
+import {Prompt, PromptVariable} from "@/db/entity/prompt";
 
 
 export async function createPrompt(prompt: Prompt): Promise<Response> {

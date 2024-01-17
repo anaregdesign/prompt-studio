@@ -1,8 +1,8 @@
 "use client";
 
 import React, {FormEvent, ReactElement} from "react";
-import {PromptVariable} from "@/db/entity/prompt_variable";
 import {createPromptVariable, deletePromptVariable, getPromptVariables} from "@/lib/rest";
+import {PromptVariable} from "@/db/entity/prompt";
 
 
 interface variable {
