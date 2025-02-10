@@ -1,6 +1,38 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped
 with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Project Description
+
+Prompt Studio is a web application that allows users to create, share, and manage prompts for various purposes. It provides a user-friendly interface for creating prompts, organizing them into categories, and sharing them with others. The application is built using Next.js and TypeScript, and it leverages a SQL database for storing prompt data.
+
+## Prerequisites
+
+Before you begin, ensure you have met the following requirements:
+
+- Node.js (version 14 or later)
+- npm (version 6 or later) or yarn (version 1.22 or later)
+- Docker (optional, for containerized deployment)
+
+## Installation
+
+To install the project, follow these steps:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/anaregdesign/prompt-studio.git
+   cd prompt-studio
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Set up environment variables:
+   Create a `.env.local` file in the root directory and add the necessary environment variables. Refer to the `Dockerfile` for the required variables.
+
 ## Getting Started
 
 First, run the development server:
@@ -22,6 +54,35 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and
 load Inter, a custom Google Font.
 
+## Usage
+
+To use the application, follow these steps:
+
+1. Open the application in your browser.
+2. Create a new prompt by clicking on the "Create Prompt" button.
+3. Fill in the prompt details, including the name and body of the prompt.
+4. Save the prompt and it will be added to the list of available prompts.
+5. You can edit or delete prompts as needed.
+
+## Contributing
+
+Contributions are welcome! To contribute to the project, follow these steps:
+
+1. Fork the repository.
+2. Create a new branch:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+3. Make your changes and commit them:
+   ```bash
+   git commit -m 'Add some feature'
+   ```
+4. Push to the branch:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+5. Open a pull request.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
@@ -39,3 +100,7 @@ the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=
 from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for more information.
