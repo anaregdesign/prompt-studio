@@ -83,6 +83,8 @@ Contributions are welcome! To contribute to the project, follow these steps:
    ```
 5. Open a pull request.
 
+For more detailed guidelines on contributing, please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
